@@ -9,12 +9,12 @@ const adminText = document.getElementById('adminText');
 
 function showAuthPanel() {
   authPanel.classList.remove('hidden');
-  gsap.fromTo(authPanel, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
+  gsap.fromTo(authPanel, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out' });
 }
 
 function showAdminPanel() {
   adminPanel.classList.remove('hidden');
-  gsap.fromTo(adminPanel, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
+  gsap.fromTo(adminPanel, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' });
 }
 
 function hideAdminPanel() {
@@ -23,7 +23,7 @@ function hideAdminPanel() {
 
 function setMessage(text, good = false) {
   authMessage.textContent = text;
-  authMessage.style.color = good ? '#93f2cf' : '#ffc2d2';
+  authMessage.style.color = good ? '#98f4d2' : '#ffb3cc';
 }
 
 async function checkSession() {
@@ -60,6 +60,61 @@ async function loadAdminData() {
   showAdminPanel();
 }
 
+function animateMetrics() {
+  gsap.utils.toArray('.metric span').forEach((line) => {
+    const finalWidth = line.closest('.card').dataset.rate;
+    gsap.to(line, {
+      width: finalWidth,
+      duration: 1.3,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: line,
+        start: 'top 86%',
+      },
+    });
+  });
+}
+
+function initMotion() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap
+    .timeline({ defaults: { ease: 'power3.out' } })
+    .from('.hero-top > *', { y: -10, opacity: 0, duration: 0.45, stagger: 0.08 })
+    .from('.hero h1', { y: 22, opacity: 0, duration: 0.8 }, '-=0.2')
+    .from('.hero p', { y: 12, opacity: 0, duration: 0.55 }, '-=0.35')
+    .from('.hero-actions > *', { y: 10, opacity: 0, duration: 0.45, stagger: 0.1 }, '-=0.3')
+    .from('.reveal-delay .card', { y: 34, opacity: 0, duration: 0.7, stagger: 0.14 }, '-=0.35');
+
+  gsap.to('.float-card', {
+    y: -8,
+    duration: 2.1,
+    yoyo: true,
+    repeat: -1,
+    ease: 'sine.inOut',
+    stagger: 0.18,
+  });
+
+  gsap.to('.orb-1', { x: 24, y: 20, duration: 5.8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.orb-2', { x: -20, y: -14, duration: 5.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.bg-grid', { backgroundPosition: '38px 24px', duration: 11, repeat: -1, ease: 'none' });
+
+  gsap.utils.toArray('.card').forEach((card) => {
+    card.addEventListener('mousemove', (event) => {
+      const bounds = card.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 8;
+      const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -8;
+      gsap.to(card, { rotateX: y, rotateY: x, transformPerspective: 900, duration: 0.3 });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.35, ease: 'power2.out' });
+    });
+  });
+
+  animateMetrics();
+}
+
 openLoginBtn.addEventListener('click', showAuthPanel);
 
 loginForm.addEventListener('submit', async (event) => {
@@ -78,7 +133,7 @@ loginForm.addEventListener('submit', async (event) => {
 
   if (!res.ok) {
     setMessage(data.error || 'Ошибка входа');
-    gsap.fromTo(loginForm, { x: -6 }, { x: 6, duration: 0.08, yoyo: true, repeat: 5 });
+    gsap.fromTo(loginForm, { x: -5 }, { x: 5, duration: 0.08, repeat: 5, yoyo: true });
     return;
   }
 
@@ -93,23 +148,6 @@ logoutBtn.addEventListener('click', async () => {
 });
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const tl = gsap.timeline();
-  tl.from('.hero', { y: 26, opacity: 0, duration: 0.8, ease: 'power3.out' })
-    .from('.reveal-delay .card', { y: 24, opacity: 0, duration: 0.65, stagger: 0.15, ease: 'power3.out' }, '-=0.4')
-    .from('.orb-1', { scale: 0.6, opacity: 0, duration: 1.1, ease: 'sine.out' }, '-=1.0')
-    .from('.orb-2', { scale: 0.6, opacity: 0, duration: 1.1, ease: 'sine.out' }, '-=1.0');
-
-  gsap.to('.float-card', {
-    y: -7,
-    duration: 2.2,
-    yoyo: true,
-    repeat: -1,
-    ease: 'sine.inOut',
-    stagger: 0.2,
-  });
-
-  gsap.to('.orb-1', { x: 20, y: 18, duration: 6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-  gsap.to('.orb-2', { x: -18, y: -12, duration: 5.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-
+  initMotion();
   await checkSession();
 });

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FutTest — Modern Minimal UI</title>
+    <title>FutTest — Neo Minimal Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,45 +12,60 @@
     />
     <link rel="stylesheet" href="./styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      defer
+    ></script>
     <script src="./app.js" defer></script>
   </head>
   <body>
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
+    <div class="bg-grid"></div>
     <div class="noise"></div>
 
     <main class="page">
       <header class="hero glass reveal">
-        <span class="badge">Modern Minimal Experience</span>
-        <h1>FutTest Dashboard</h1>
+        <div class="hero-top">
+          <span class="badge">Neo Minimal UI</span>
+          <span class="hero-chip">GSAP Motion System</span>
+        </div>
+        <h1>
+          FutTest <span>переосмысленный</span>
+          <strong>современный минимализм</strong>
+        </h1>
         <p>
-          Переработанный интерфейс с плавными анимациями, стеклянными карточками и современным
-          минимализмом.
+          Легкий интерфейс с атмосферными градиентами, глубиной, мягкой типографикой и насыщенной
+          системой микро-анимаций.
         </p>
+        <div class="hero-actions">
+          <button id="openLogin" class="btn">Войти в систему</button>
+          <span class="session-info" id="sessionInfo">Гость</span>
+        </div>
       </header>
 
-      <section class="grid reveal-delay">
-        <article class="card glass float-card">
-          <h2>Аналитика</h2>
-          <p>Чистая типографика, акцент на данных и мягкие микро-анимации при взаимодействии.</p>
-          <div class="pulse-dot"></div>
+      <section class="stats-grid reveal-delay">
+        <article class="card glass float-card" data-rate="91%">
+          <h2>UX Score</h2>
+          <p>Плавная навигация, чистые отступы, современные стеклянные поверхности.</p>
+          <div class="metric"><span></span></div>
         </article>
-        <article class="card glass float-card">
-          <h2>Производительность</h2>
-          <p>Легкие градиенты, depth-эффект и композиция без перегруза интерфейса.</p>
-          <div class="line-progress"><span></span></div>
+        <article class="card glass float-card" data-rate="98%">
+          <h2>Security Layer</h2>
+          <p>Доступ к админ-панели строго для супер-админа, созданного при первом запуске.</p>
+          <div class="metric"><span></span></div>
         </article>
-        <article class="card glass float-card">
-          <h2>Безопасность</h2>
-          <p>Админ-панель открывается только супер-админу, созданному автоматически при первом запуске.</p>
-          <button id="openLogin" class="btn">Войти в систему</button>
+        <article class="card glass float-card" data-rate="87%">
+          <h2>Motion Quality</h2>
+          <p>Глубокие GSAP-анимации: hover, reveal, ambient, parallax и реакция на скролл.</p>
+          <div class="metric"><span></span></div>
         </article>
       </section>
 
       <section id="authPanel" class="auth glass hidden">
         <div class="auth-head">
           <h3>Авторизация</h3>
-          <span id="sessionInfo" class="session-info">Гость</span>
+          <span class="chip">Secure Session</span>
         </div>
         <form id="loginForm" class="auth-form">
           <label>
@@ -61,8 +76,10 @@
             Пароль
             <input type="password" id="password" required />
           </label>
-          <button class="btn" type="submit">Войти</button>
-          <button id="logoutBtn" class="btn secondary" type="button">Выйти</button>
+          <div class="auth-actions">
+            <button class="btn" type="submit">Войти</button>
+            <button id="logoutBtn" class="btn secondary" type="button">Выйти</button>
+          </div>
         </form>
         <p id="authMessage" class="auth-message"></p>
       </section>
