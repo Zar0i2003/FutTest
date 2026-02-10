@@ -1,0 +1,258 @@
+:root {
+  --bg: #070b14;
+  --card: rgba(15, 21, 35, 0.58);
+  --text: #ecf0ff;
+  --muted: #a8b4d8;
+  --primary: #7b8cff;
+  --secondary: #5ad1e6;
+  --border: rgba(255, 255, 255, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #151e35, #070b14 35%, #04060d);
+  overflow-x: hidden;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.glass {
+  backdrop-filter: blur(14px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(4, 10, 30, 0.35);
+}
+
+.hero {
+  padding: 32px;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(123, 140, 255, 0.16);
+  color: #cfdbff;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 16px 0 10px;
+  font-size: clamp(28px, 5vw, 56px);
+}
+
+.hero p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.grid {
+  margin-top: 24px;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card {
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: rgba(123, 140, 255, 0.5);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.btn {
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  padding: 11px 18px;
+  border-radius: 12px;
+  background: linear-gradient(120deg, var(--primary), var(--secondary));
+  color: white;
+  font-weight: 600;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(123, 140, 255, 0.32);
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.auth,
+.admin {
+  margin-top: 22px;
+  padding: 24px;
+}
+
+.auth-head,
+.admin-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.session-info,
+.chip {
+  font-size: 12px;
+  color: #d7deff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.auth-form {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 6px;
+  color: #c8d0ed;
+  font-size: 14px;
+}
+
+.auth-form input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(3, 7, 15, 0.56);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.auth-message {
+  color: #a9bbea;
+  min-height: 22px;
+}
+
+.hidden {
+  display: none;
+}
+
+.pulse-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--secondary);
+  box-shadow: 0 0 0 0 rgba(90, 209, 230, 0.9);
+  animation: pulse 1.8s infinite;
+}
+
+.line-progress {
+  margin-top: 14px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.line-progress span {
+  display: block;
+  width: 64%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  animation: progressPulse 2.4s ease-in-out infinite alternate;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(2px);
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.orb-1 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #7b8cff, #7b8cff00 64%);
+  top: -120px;
+  left: -80px;
+}
+
+.orb-2 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, #5ad1e6, #5ad1e600 66%);
+  right: -50px;
+  bottom: -80px;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0);
+  background-size: 4px 4px;
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 16px rgba(90, 209, 230, 0);
+  }
+}
+
+@keyframes progressPulse {
+  from {
+    transform: translateX(-12%);
+  }
+  to {
+    transform: translateX(6%);
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 24px 14px 42px;
+  }
+
+  .hero,
+  .card,
+  .auth,
+  .admin {
+    border-radius: 16px;
+    padding: 18px;
+  }
+}
